@@ -20,6 +20,6 @@ export const getStaticProps = async () => {
   const res = await client.getEntries({ content_type: 'post' });
   return {
     props: { posts: res.items },
-    revalidate: 10,
+    revalidate: 30,
   };
 };
