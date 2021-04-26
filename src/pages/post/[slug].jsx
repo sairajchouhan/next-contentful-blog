@@ -4,14 +4,14 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 const EachPost = ({ post }) => {
   const { image, title, body, createdAt } = post.fields;
   return (
-    <div>
-      <div className="rounded-sm shadow-xl my-4">
+    <div className="w-5/6 mx-auto">
+      <div className="rounded-sm shadow-2xl my-4">
         <div>
           <img src={image.fields.file.url} alt="" />
         </div>
-        <div className="px-4 py-3">
+        <div className="px-8 pb-6">
           <div className="my-2">
-            <p className="text-3xl text-gray-800 font-semibold">{title}</p>
+            <p className="text-4xl text-gray-800 font-semibold my-4">{title}</p>
           </div>
           <div>{documentToReactComponents(body)}</div>
         </div>
@@ -45,6 +45,7 @@ export const getStaticProps = async ({ params }) => {
   return {
     props: {
       post: items[0],
+      revalidate: 1,
     },
   };
 };
