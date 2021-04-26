@@ -2,6 +2,8 @@ import { createClient } from 'contentful';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 const EachPost = ({ post }) => {
+  if (!post)
+    return <p className="text-8xl text-gray-600 text-center">Loading...</p>;
   const { image, title, body, createdAt } = post.fields;
   return (
     <div className="w-5/6 mx-auto">
@@ -32,7 +34,7 @@ export const getStaticPaths = async () => {
   }));
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
