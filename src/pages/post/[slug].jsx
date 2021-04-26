@@ -30,15 +30,6 @@ const client = createClient({
 export const getStaticPaths = async () => {
   const { items } = await client.getEntries({ content_type: 'post' });
 
-  if (!items || items.length <= 0) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    };
-  }
-
   const paths = items.map((item) => ({
     params: { slug: item.fields.slug },
   }));
@@ -54,10 +45,19 @@ export const getStaticProps = async ({ params }) => {
     'fields.slug': params.slug,
   });
 
+  if (!items || items.length <= 0) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
       post: items[0],
-      revalidate: 1,
+      revalidate: 30,
     },
   };
 };
